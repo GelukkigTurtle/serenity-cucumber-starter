@@ -1,0 +1,70 @@
+defaultTasks 'clean', 'test', 'aggregate'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("net.serenity-bdd:serenity-gradle-plugin:2.3.4")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.0.3.RELEASE")
+
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'org.springframework.boot'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+group = 'starter'
+
+ext {
+    slf4jVersion = '1.7.7'
+    serenityCoreVersion = '2.3.4'
+    serenityCucumberVersion = '2.3.4'
+    junitVersion = '4.12'
+    assertJVersion = '3.8.0'
+    logbackVersion = '1.2.3'
+    lombokVersion = '1.18.12'
+
+}
+
+dependencies {
+    //compile  org.springframework.boot:spring-boot-starter-test
+    testImplementation "org.springframework.boot:spring-boot-starter-test:2.0.3.RELEASE"
+    testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
+            "net.serenity-bdd:serenity-screenplay:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-screenplay-webdriver:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-ensure:${serenityCoreVersion}",
+            "net.serenity-bdd:serenity-junit:${serenityCoreVersion}",
+            "junit:junit:${junitVersion}",
+            "org.assertj:assertj-core:${assertJVersion}"
+    testRuntimeOnly group: 'net.serenity-bdd', name: 'serenity-spring', version: serenityCoreVersion
+
+    testCompileOnly group: 'org.projectlombok', name: 'lombok' , version: lombokVersion
+    testAnnotationProcessor group: 'org.projectlombok', name: 'lombok' , version: lombokVersion
+
+}
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
+bootJar {
+    enabled = false
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
