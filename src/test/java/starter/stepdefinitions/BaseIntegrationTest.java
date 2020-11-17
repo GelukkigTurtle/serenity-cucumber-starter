@@ -14,7 +14,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import starter.CucumberTestSuite;
 
 @ContextConfiguration
-@RunWith(SpringJUnit4ClassRunner.class)
+//@RunWith(SpringJUnit4ClassRunner.class)
 @ComponentScan(basePackages = {"starter","starter.utils"})
 @SpringBootTest(classes = {CucumberTestSuite.class})
 @EnableAutoConfiguration
@@ -22,7 +22,7 @@ import starter.CucumberTestSuite;
 @Slf4j
 public class BaseIntegrationTest {
 
-    @Test
+    @Before
     public void contextLoads() {
         System.out.println("IT's FRIDAY MDFKSRS");
     }

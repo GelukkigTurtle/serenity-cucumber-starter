@@ -1,17 +1,11 @@
 package starter;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.stereotype.Component;
-import org.springframework.test.context.ContextConfiguration;
-import starter.stepdefinitions.BaseIntegrationTest;
+import org.springframework.context.annotation.PropertySource;
 
-@NoArgsConstructor
-//@ContextConfiguration(classes = BaseIntegrationTest.class)
-@Component
+@Configuration
+@PropertySource(value={"classpath:application.properties"})
 public class EnvironmentConfiguration {
 
 
@@ -24,7 +18,7 @@ public class EnvironmentConfiguration {
     @Value("${PROTOCOL:http}")
     private String protocol;
 
-    @Value("${TITLE:null}")
+    @Value("${TITLE:nullpedan}")
     private String title;
 
 
