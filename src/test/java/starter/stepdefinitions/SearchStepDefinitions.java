@@ -1,5 +1,6 @@
 package starter.stepdefinitions;
 
+import lombok.extern.slf4j.Slf4j;
 import io.cucumber.java.Before;
 import io.cucumber.java.ParameterType;
 import io.cucumber.java.en.Given;
@@ -9,19 +10,30 @@ import net.serenitybdd.screenplay.Actor;
 import net.serenitybdd.screenplay.actors.OnStage;
 import net.serenitybdd.screenplay.actors.OnlineCast;
 import net.serenitybdd.screenplay.ensure.Ensure;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import starter.CucumberTestSuite;
 import starter.navigation.NavigateTo;
 import starter.search.LookForInformation;
 import starter.search.WikipediaArticle;
+import starter.utils.MathUtils;
 
+@Slf4j
+@ContextConfiguration(classes = BaseIntegrationTest.class)
 public class SearchStepDefinitions {
+
+    @Autowired
+    MathUtils mathUtils;
 
     @Before
     public void setTheStage() {
+
         OnStage.setTheStage(new OnlineCast());
     }
 
     @Given("{actor} is researching things on the internet")
     public void researchingThings(Actor actor) {
+        System.out.println("PEDOLOCO ====> "+mathUtils.saludo());
         actor.wasAbleTo(NavigateTo.theWikipediaHomePage());
     }
 
@@ -34,6 +46,7 @@ public class SearchStepDefinitions {
 
     @Then("{actor} should see information about {string}")
     public void should_see_information_about(Actor actor, String term) {
+
         actor.attemptsTo(
                 Ensure.that(WikipediaArticle.HEADING).hasText(term)
         );

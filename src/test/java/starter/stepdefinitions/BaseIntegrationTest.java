@@ -1,5 +1,7 @@
 package starter.stepdefinitions;
 
+import io.cucumber.java.Before;
+import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,12 +14,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import starter.CucumberTestSuite;
 
 @ContextConfiguration
-@Slf4j
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ComponentScan({"com.wr.ui.automation.utils","com.wr.ui.automation"})
+@ComponentScan(basePackages = {"starter","starter.utils"})
 @SpringBootTest(classes = {CucumberTestSuite.class})
 @EnableAutoConfiguration
-@ActiveProfiles("test")
+@ActiveProfiles(value = "test")
+@Slf4j
 public class BaseIntegrationTest {
 
     @Test

@@ -35,11 +35,18 @@ ext {
     assertJVersion = '3.8.0'
     logbackVersion = '1.2.3'
     lombokVersion = '1.18.12'
+    cucumberVersion = '6.7.0'
 
 }
 
+bootJar {
+    mainClassName = 'starter.Main'
+}
+
 dependencies {
-    //compile  org.springframework.boot:spring-boot-starter-test
+    compile  "org.springframework.boot:spring-boot-starter:2.0.3.RELEASE"
+    implementation group: 'io.cucumber', name: 'cucumber-spring', version: cucumberVersion
+
     testImplementation "org.springframework.boot:spring-boot-starter-test:2.0.3.RELEASE"
     testCompile "net.serenity-bdd:serenity-core:${serenityCoreVersion}",
             "net.serenity-bdd:serenity-cucumber6:${serenityCucumberVersion}",
